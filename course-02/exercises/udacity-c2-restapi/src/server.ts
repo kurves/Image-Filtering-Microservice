@@ -16,9 +16,7 @@ import { V0MODELS } from './controllers/v0/model.index';
   const port = process.env.PORT || 8080; // default port to listen
   
   // body-oarser for express v4.16.0 and higher
-  app.use(express.urlencoded({
-    extended:true
-  }));
+  app.use(express.urlencoded());
   app.use(express.json());
 
   //CORS Should be restricted
