@@ -15,7 +15,7 @@ import { V0MODELS } from './controllers/v0/model.index';
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen
   
-  // body-oarser for express v4.16.0 and higher
+  // body-parser replacement for express v4.16.0 and higher
   app.use(express.urlencoded());
   app.use(express.json());
 
