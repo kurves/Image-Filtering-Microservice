@@ -6,17 +6,26 @@ export const config = {
     "host": process.env.POSTGRESS_HOST,
     "dialect": "postgres",
     "aws_region":process.env.AWS_REGION,
-    "aws_profile": "default",
-    "aws_media_bucket": process.env.AWS_BUCKET_NAME
-  },
-  "jwt": {
-    "secret": " "
-  },
-  "prod": {
-    "username": "",
-    "password": "",
-    "database": "udagram_prod",
-    "host": "",
-    "dialect": "postgres"
+    "aws_profile": process.env.AWS_PROFILE,
+    "aws_media_bucket": process.env.AWS_MEDIA_BUCKET,
+ 
+    "jwt": {
+      "secret": " "
+},
+
+  "aws":{
+  "aws_region":process.env.AWS_REGION,
+  "aws_profile": process.env.AWS_PROFILE,
+  "aws_media_bucket": process.env.AWS_MEDIA_BUCKET
+
   }
 }
+
+
+/*
+"prod": {
+  "username": "",
+  "password": "",
+  "database": "udagram_prod",
+  "host": "",
+  "dialect": "postgres"*/
