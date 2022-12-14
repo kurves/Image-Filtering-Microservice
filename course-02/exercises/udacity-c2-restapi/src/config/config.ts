@@ -1,13 +1,13 @@
 export const config = {
   "dev": {
-    "username": "udagramkurves",
-    "password": "databasekurves",
-    "database": "udagramkurves",
-    "host": "udagramkurves.cuszxooszhyd.us-east-1.rds.amazonaws.com",
+    "username": process.env.POSTGRESS_USERNAME,
+    "password": process.env.POSTGRESS_PASSWORD,
+    "database": process.env.POSTGRESS_DATABASE,
+    "host": process.env.POSTGRESS_HOST,
     "dialect": "postgres",
-    "aws_region": "us-east-1",
+    "aws_region":process.env.AWS_REGION,
     "aws_profile": "default",
-    "aws_media_bucket": "udagramkurvesdev"
+    "aws_media_bucket": process.env.AWS_BUCKET_NAME
   },
   "jwt": {
     "secret": " "
