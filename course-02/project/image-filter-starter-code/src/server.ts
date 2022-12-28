@@ -34,17 +34,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
  
 });
-  
-
-
-
-
-
-
-
-
-
-  // endpoint to filter an image from a public url.
+    // endpoint to filter an image from a public url.
   // IT SHOULD
   //    1
   //    1. validate the image_url query

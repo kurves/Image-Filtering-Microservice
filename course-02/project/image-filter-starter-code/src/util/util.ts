@@ -27,25 +27,6 @@ import Jimp from "jimp";
   });
 } 
 
-
-
-
-/* export async function filterImageFromURL(url) {
-
-  const photo = await axios({
-    method: 'get',
-    url: inputURL,
-    responseType: 'arraybuffer'
-    })
-    .then(function ({data: imageBuffer}) {
-     return Jimp.read(imageBuffer)
-    })
-
-}
- */
-
-
-
 // deleteLocalFiles
 // helper function to delete files on the local disk
 // useful to cleanup after tasks
