@@ -1,7 +1,8 @@
 # TODO: Change the name of the org 
-org: sudkul
-app: serverless-todo-app
-service: serverless-todo-app
+org: kurves
+app: kurves-single-page-applications
+service: kurves-single-page-applications
+framweworkVersion: 2.21.1
 
 plugins:
   - serverless-webpack
