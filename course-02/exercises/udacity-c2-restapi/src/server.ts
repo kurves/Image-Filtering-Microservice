@@ -1,9 +1,10 @@
 import express from 'express';
+require('dotenv').config();
 import { sequelize } from './sequelize';
 
 import { IndexRouter } from './controllers/v0/index.router';
 
-import bodyParser from 'body-parser';
+const bodyParser = require('body-parser')
 
 import { V0MODELS } from './controllers/v0/model.index';
 
@@ -14,14 +15,16 @@ import { V0MODELS } from './controllers/v0/model.index';
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen
   
+  // body-parser replacement for express v4.16.0 and higher
+  app.use(bodyParser.urlencoded());
   app.use(bodyParser.json());
 
   //CORS Should be restricted
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:8100");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-  });
+  //app.use(function(req, res, next) {
+   // res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+  //  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+   // next();
+  //});
 
   app.use('/api/v0/', IndexRouter)
 
