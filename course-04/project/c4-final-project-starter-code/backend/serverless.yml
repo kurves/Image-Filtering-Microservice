@@ -62,6 +62,18 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
+    iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}[*]table/${self:provider.environment.TODOS_TABLE}   
+      - Effect: Allow
+        Action:
+          - xray: PutTraceSegments
+        Resource:
+          - '*'   
+
 
   # TODO: Configure this function - 
   # Provide iamRoleStatements property. Decide the Actions and AWS Resource. 
@@ -79,6 +91,19 @@ functions:
             schemas:
               application/json: ${file(models/create-todo-model.json)}
 
+    iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}[*]table/${self:provider.environment.TODOS_TABLE}   
+      - Effect: Allow
+        Action:
+          - xray: PutTraceSegments
+        Resource:
+          - '*'   
+
+
   # TODO: Configure this function
   # Provide property for setting up CORS, Authorizer, iamRoleStatements, and request schemas
   UpdateTodo:
@@ -87,6 +112,20 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+    
+    iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}[*]table/${self:provider.environment.TODOS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray: PutTraceSegments
+        Resource:
+          - '*'   
+
+
 
   # TODO: Configure this function
   # Provide property for setting up CORS, Authorizer, iamRoleStatements
@@ -96,6 +135,18 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+
+    iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-get-todo-role-${self:provider.stage}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}[*]table/${self:provider.environment.TODOS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray: PutTraceSegments
+        Resource:
+          - '*'  
 
   # TODO: Configure this function
   # Provide property for setting up CORS, Authorizer, iamRoleStatements
