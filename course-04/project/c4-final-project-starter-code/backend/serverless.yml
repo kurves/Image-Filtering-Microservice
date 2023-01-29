@@ -186,24 +186,63 @@ resources:
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "*"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Anz-Date,Authorization,X-Api-key'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "*"
+      ResponseType: DEFAULT_4XX
+      RestApiId:
+        Ref: ApiGatewayRestApi
+
+
+    GatewayResponseDefault5XX:
+    Type: AWS::ApiGateway::GatewayResponse
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "*"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Anz-Date,Authorization,X-Api-key'"
+        gatewayresponse.header.Access-Control-Allow-Methods: "*"
+    ResponseType: DEFAULT_5XX
+    RestApiId:
+      Ref: ApiGatewayRestApi
+
+      
     
     # TODO: Create a DynamoDB table with local secondary index and a composite key
     TodosTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributesDefinitions:
-           - AttributeName: userId
-             AttributeType: $
-           - AttributeName: todoId
-             AttributeType: $
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: timeStamp
+            AttributeType: S
+          - AttributeName: todoId
+            AttributeType: S
         KeySchema:
-           - AttributeName: userId
-             keyType: HASH
-           - AttributeName: todoId
-             keytype: RANGE         
+          - AttributeName: userId
+            keyType: HASH
+          - AttributeName: todoId
+            keytype: RANGE      
+        GlobalSecondaryIndexes:
+          - Indexname: ${self:provider.environment.TODO_ID_INDEX}       
+            KeySchema:
+            - AttibuteName: todoId
+              keyType: HASH
+            Projection:
+              - ProjectionType: ALL     
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.TODOS_TABLE}        
 
-
-
+    
+    BodyValidator:
+       Type: "AWS::ApiGateway::RequestValidator"
+       Properties:
+          Name: 'only-body'
+          RestApiId:
+            Ref: ApiGatewayRestApi
+          ValidateRequestBody: true
+          ValidateRequestParameters: false
 
 
     # TODO: Complete the bucket properties below. 
@@ -211,6 +250,20 @@ resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
+        BucketName: ${self:provider.environment.S3_BUCKET_NAME}
+        CorsConfigiration:
+          CorsRules: 
+            - AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'  
+              AllowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+                - HEAD
+              MaxAge: 300    
 
     # TODO: Complete the policy below and attach it to the bucket defined above
     # For cross referencing the name of the bucket, use "!Ref AttachmentsBucket"
