@@ -2,7 +2,7 @@
 org: kurves
 app: kurves-serverless-app 
 service: kurves-serverless-app
-framweworkVersion: 2.21.1
+#framweworkVersion: 2.21.1
 
 plugins:
   - serverless-webpack
@@ -167,7 +167,7 @@ functions:
       - http:
           method: post
           path: todos/{todoId}/attachment
-           cors: true
+          cors: true
           authorizer: Auth
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-s3-upload-role-${self:provider.stage}
     iamRoleStatements:
@@ -188,7 +188,7 @@ resources:
       Properties:
         ResponseParameters:
           gatewayresponse.header.Access-Control-Allow-Origin: "*"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Anz-Date,Authorization,X-Api-key'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Anz-Date,Authorization,X-Api-key,X-Anz-Security'"
           gatewayresponse.header.Access-Control-Allow-Methods: "*"
       ResponseType: DEFAULT_4XX
       RestApiId:
@@ -200,8 +200,8 @@ resources:
     Properties:
       ResponseParameters:
         gatewayresponse.header.Access-Control-Allow-Origin: "*"
-        gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Anz-Date,Authorization,X-Api-key'"
-        gatewayresponse.header.Access-Control-Allow-Methods: "*"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Anz-Date,Authorization,X-Api-key,X-Anz-Security'"
+        gatewayresponse.header.Access-Control-Allow-Methods: "'GET,PUT,OPTIONS,POST,DELETE,PATCH'"
     ResponseType: DEFAULT_5XX
     RestApiId:
       Ref: ApiGatewayRestApi
@@ -270,3 +270,13 @@ resources:
     BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
+        PolicyDocument:
+          Id: kurvesPolicy
+          Version: '2023-01-23'
+          Statement:
+            - Sid: PublicReadForGetBucketObjets
+              Effect: ALlow
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}/*'
+        Bucket: !Ref AttachmentsBucket      
