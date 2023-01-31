@@ -33,6 +33,15 @@ provider:
     GROUPS_TABLE: Groups-${self:provider.stage}
 
 
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - dynamodb: Scan
+        - dynamodb: PutItem
+        - dynamodb: GetItem
+      Resources: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}  
+
   logs:
     # Enable API Gateway logs
     restApi: true
