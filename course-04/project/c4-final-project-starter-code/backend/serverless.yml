@@ -32,8 +32,6 @@ provider:
     SIGNED_URL_EXPIRATION: 300
     GROUPS_TABLE: Groups-${self:provider.stage}
 
-
-
   iamRoleStatements:
     - Effect: Allow
       Action: 
@@ -41,6 +39,11 @@ provider:
         - dynamodb: PutItem
         - dynamodb: GetItem
       Resources: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}  
+    - Effect: Allow
+      Actions:
+        - dynamodb:PutItem
+        - dynamodb:Query 
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.}  
 
   logs:
     # Enable API Gateway logs
