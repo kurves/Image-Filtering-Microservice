@@ -26,9 +26,10 @@ provider:
   # ${self:provider.environment.ATTACHMENT_S3_BUCKET}
   environment:
     PROJECT_NAME: kurves-serverless-app
-    TODOS_TABLE: Todos-${self:provider.stage}
-    TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    ATTACHMENT_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
+    TODOS_TABLE: kurves-serverless-application-todo-${self:provider.stage}
+    #TODOS_CREATED_AT_INDEX: CreatedAtIndex
+    ATTACHMENT_S3_BUCKET: udacity-serverless-application-todo-${self:provider.stage}
+    S3_BUCKET_NAME: kurves-serverless-application-todo-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     GROUPS_TABLE: Groups-${self:provider.stage}
 
