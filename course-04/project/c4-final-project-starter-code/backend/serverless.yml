@@ -129,7 +129,6 @@ functions:
           request:
             schemas:
               application/json: ${file(models/update-todo-model.json)}
-
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-update-todo-role-${self:provider.stage}
     iamRoleStatements:
       - Effect: Allow
