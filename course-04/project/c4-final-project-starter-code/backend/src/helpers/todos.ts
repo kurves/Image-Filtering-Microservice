@@ -32,5 +32,10 @@ export function createTodo(createTodoRequest, jwtToken:string): promise<CreateTo
   });
 }
 
-export function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken:)
-
+export function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken: string): Promise<string>{
+    const userId = parseUserId(jwtToken);
+    return todoAccess.updateTodo(updateTodoRequest, todoId, userId);
+}
+// export function generateUploader(todoId: string): Promise<string> {
+//     return todoAccess.generateUploader(todoId)
+// }
