@@ -22,15 +22,15 @@ export function createTodo(createTodoRequest, jwtToken:string): promise<CreateTo
     const todoId = uuidv4();
     const s3BucketName = process.env.s3_BUCKET_NAME;
 
-//     return todoAccess.createTodo({
-//          userId: userId,
-//          todoId: todoId,
-//          attachememtUrl: `https://${s3BucketName}.s3.amazon.com/${todoId}`,
-//          createdAt: new Date().getTime().toString(),
-//          done: false,
-//          ...createTodoRequest,
-//   });
-// }
+    return todoAccess.createTodo({
+         userId: userId,
+         todoId: todoId,
+         attachememtUrl: `https://${s3BucketName}.s3.amazon.com/${todoId}`,
+         createdAt: new Date().getTime().toString(),
+         done: false,
+         ...createTodoRequest,
+  });
+}
 
-// export function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken:)
+export function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken:)
 
