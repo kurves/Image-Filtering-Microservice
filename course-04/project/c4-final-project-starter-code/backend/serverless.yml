@@ -1,6 +1,6 @@
 # TODO: Change the name of the org 
 org: kurves
-app: kurves-serverless-app 
+app: kurves-serverless-app
 service: kurves-serverless-app
 #framweworkVersion: 2.21.1
 
@@ -33,18 +33,18 @@ provider:
     SIGNED_URL_EXPIRATION: 300
     GROUPS_TABLE: Groups-${self:provider.stage}
 
-  iamRoleStatements:
-    - Effect: Allow
-      Action: 
-        - dynamodb: Scan
-        - dynamodb: PutItem
-        - dynamodb: GetItem
-      Resources: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}  
-    - Effect: Allow
-      Actions:
-        - dynamodb:PutItem
-        - dynamodb:Query 
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.}  
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action: 
+  #       - dynamodb: Scan
+  #       - dynamodb: PutItem
+  #       - dynamodb: GetItem
+  #     Resources: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.GROUPS_TABLE}  
+  #   - Effect: Allow
+  #     Actions:
+  #       - dynamodb:PutItem
+  #       - dynamodb:Query 
+  #     Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.}  
 
   logs:
     # Enable API Gateway logs
@@ -231,8 +231,8 @@ resources:
             keyType: HASH
           - AttributeName: todoId
             keytype: RANGE      
-        GlobalSecondaryIndexes:
-          - Indexname: ${self:provider.environment.TODO_ID_INDEX}       
+        # GlobalSecondaryIndexes:
+        #   - Indexname: ${self:provider.environment.TODO_ID_INDEX}       
             KeySchema:
             - AttibuteName: todoId
               keyType: HASH
