@@ -36,6 +36,6 @@ export function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string,
     const userId = parseUserId(jwtToken);
     return todoAccess.updateTodo(updateTodoRequest, todoId, userId);
 }
-// export function generateUploader(todoId: string): Promise<string> {
-//     return todoAccess.generateUploader(todoId)
-// }
+export function generateUploader(todoId: string): Promise<string> {
+    return todoAccess.generateUploader(todoId)
+}
